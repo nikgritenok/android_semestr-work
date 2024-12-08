@@ -1,5 +1,6 @@
 package com.example.semestrwork
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,12 +28,15 @@ class DogAdapter(private var dogList: List<Dog>) : RecyclerView.Adapter<DogAdapt
             .load(dog.url)
             .into(holder.imageViewDog)
 
-//        holder.textViewBreed.text = if (dog.breeds.isNotEmpty()) {
-//            dog.breeds[0].name
-//        } else {
-//            "Неизвестная порода"
-//        }
+        holder.imageViewDog.setOnClickListener {
+            val context = holder.itemView.context
+            val intent = Intent(context, FullScreenImageActivity::class.java)
+            intent.putExtra("IMAGE_URL", dog.url)
+            context.startActivity(intent)
+        }
     }
+
+
 
     fun updateData(list: List<Dog>) {
         dogList = list
